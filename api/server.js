@@ -11,7 +11,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 5174; //Server Port
 
 app.use(cors());
 app.use(express.json());
@@ -48,19 +47,24 @@ const products = [
   },
 ];
 
+// --- API Routes ---
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
 app.get("/api/products", (req, res) => {
   res.json(products);
 });
 
-// Fake checkout endpoint (demo only)
+app.get("/api/products/:id", (req, res) => {
+  const product = products.find((p) => p.id === req.params.id);
+  if (!product) return res.status(404).json({ error: "Product not found" });
+  res.json(product);
+});
+
 app.post("/api/checkout", (req, res) => {
   const { items, email } = req.body || {};
   if (!Array.isArray(items) || !email) {
     return res.status(400).json({ error: "Missing items or email" });
   }
-  // In a real app, integrate a payment provider here.
   return res.json({
     success: true,
     orderId: "ORDER-" + Math.random().toString(36).slice(2, 8).toUpperCase(),
@@ -68,25 +72,5 @@ app.post("/api/checkout", (req, res) => {
   });
 });
 
-// In production, serve built client
-const clientDist = path.join(__dirname, "..", "client", "dist");
-app.use(express.static(clientDist));
-app.get("*", (req, res) => {
-  try {
-    res.sendFile(path.join(clientDist, "index.html"));
-  } catch (e) {
-    res.status(404).send("Not Found");
-  }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
-});
-
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((p) => p.id === req.params.id);
-  if (!product) {
-    return res.status(404).json({ error: "Product not found" });
-  }
-  res.json(product);
-});
+// --- Export the Express app (no listen call) ---
+export default app;
