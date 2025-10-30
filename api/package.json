@@ -1,16 +1,13 @@
 {
-  "name": "powerbank-shop-server",
+  "name": "powerbank-shop-api",
   "version": "1.0.0",
   "type": "module",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "node server.js",
-    "start": "NODE_ENV=production node server.js"
+    "start": "node index.js"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "morgan": "^1.10.0"
+    "serverless-http": "^3.2.0"
   }
 }
