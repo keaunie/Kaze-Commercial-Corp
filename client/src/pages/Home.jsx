@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import ProductCard from '../components/ProductCard.jsx'
 import Features from '../components/Features.jsx'
 import HeroSection from '../components/HeroSection.jsx'
+import QuoteSection from '../components/QuoteSection.jsx'
+import FeaturedSection from '../components/FeaturedSection.jsx'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -44,6 +46,9 @@ export default function Home() {
         srcWebm="https://res.cloudinary.com/dczzibbkw/video/upload/v1757941618/bg_i61r89.webm"   // optional
         poster="/images/hero-powerbank-poster.jpg"
       />
+
+      <QuoteSection/>
+      <FeaturedSection/>
 
       {/* PRODUCTS */}
       <section id="products" className="py-16">

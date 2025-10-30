@@ -1,4 +1,4 @@
-# Powerbank Shop (React + Tailwind + Node/Express)
+# Kaze Commercial Corp. (React + Tailwind + Node/Express)
 
 A basic full-stack storefront to sell powerbanks. Frontend is Vite + React + Tailwind;
 backend is Node/Express serving a demo products API and a fake checkout.
